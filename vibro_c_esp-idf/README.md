@@ -39,4 +39,6 @@ $\varepsilon$
 | `spectrum` | `float[512]` | 2048 | Значения спектра виброскорости |
 | **ИТОГО** | | **6152 Байта** | каждые 0,33 секунды ≈18,3 кб/с |
 
-<img width="327" height="304" alt="иной путь после завода" src="https://github.com/user-attachments/assets/59413a03-ec43-436a-a3c1-4543e8c01071" />
+<img width="960" height="1280" alt="photo_2026-05-02_16-05-25" src="https://github.com/user-attachments/assets/7aff8882-2e35-41ed-bd48-2a1fc8d2142c" />
+<img width="1280" height="814" alt="photo_2026-05-02_16-05-23" src="https://github.com/user-attachments/assets/aeb400f9-fa2a-462d-aa86-a52e5b72ab92" />
+
