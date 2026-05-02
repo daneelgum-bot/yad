@@ -38,6 +38,22 @@
 | `spectrum` | `float[512]` | 2048 | Значения спектра виброскорости |
 | **ИТОГО** | | **6152 Байта** | каждые 0,33 секунды ≈18,3 кб/с |
 
+
+
+
+# КОД ПРОЕКТА
+
+1. **new_adxl_two.c**
+   Конфигурация датчика ADXL345, чтение и запись регистров
+2. **new_buffers.c**
+   Задача чтения, а также отправки по WebSocket
+3. **new_fft.c**
+   Фильтрация, отсечение постоянной составляющей ускорения (g), БПФ
+4. **param.h**
+   Задание адреса сервера, размер БПФ
+   
 <img width="960" height="1280" alt="photo_2026-05-02_16-05-25" src="https://github.com/user-attachments/assets/7aff8882-2e35-41ed-bd48-2a1fc8d2142c" />
 <img width="1280" height="814" alt="photo_2026-05-02_16-05-23" src="https://github.com/user-attachments/assets/aeb400f9-fa2a-462d-aa86-a52e5b72ab92" />
+
+
 
