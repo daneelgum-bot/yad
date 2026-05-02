@@ -1,0 +1,55 @@
+#include "websocket.h"
+#include "esp_log.h"
+#include "param.h"
+
+static const char *TAG = "websocket_app";
+static esp_websocket_client_handle_t websocket_client = NULL;
+static websocket_cmd_handler_t cmd_handler = NULL;
+
+void websocket_set_cmd_handler(websocket_cmd_handler_t handler)
+{
+    cmd_handler = handler;
+}
+
+static void websocket_event_handler(void *handler_args, esp_event_base_t base,
+                                    int32_t event_id, void *event_data)
+{
+    esp_websocket_event_data_t *data = (esp_websocket_event_data_t *)event_data;
+    switch (event_id) {
+    case WEBSOCKET_EVENT_CONNECTED:
+        ESP_LOGI(TAG, "WebSocket Connected");
+        break;
+    case WEBSOCKET_EVENT_DISCONNECTED:
+        ESP_LOGW(TAG, "WebSocket Disconnected");
+        break;
+    case WEBSOCKET_EVENT_DATA:
+        if (cmd_handler && data->data_ptr && data->data_len > 0) {
+            cmd_handler(data->data_ptr, data->data_len);
+        }
+        break;
+    case WEBSOCKET_EVENT_ERROR:
+        ESP_LOGE(TAG, "WebSocket Error");
+        break;
+    default:
+        break;
+    }
+}
+
+void websocket_app_start(void)
+{
+    esp_websocket_client_config_t ws_cfg = {
+        .uri = WS_URI,
+        .buffer_size = 16384,
+        .task_stack = 8192,
+        .reconnect_timeout_ms = 1500,
+        .network_timeout_ms = 10000,
+    };
+    websocket_client = esp_websocket_client_init(&ws_cfg);
+    esp_websocket_register_events(websocket_client, WEBSOCKET_EVENT_ANY, websocket_event_handler, NULL);
+    esp_websocket_client_start(websocket_client);
+}
+
+esp_websocket_client_handle_t websocket_app_get_client(void)
+{
+    return websocket_client;
+}
